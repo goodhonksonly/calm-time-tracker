@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <title>Second to None</title>
 
-  <!-- Load Montserrat font from Google Fonts -->
+  <!-- Load Montserrat font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #F0EDF9; /* lighter purple background */
+      background: #F0EDF9;
       text-align: center;
       padding: 60px 20px;
       color: #444;
@@ -19,7 +19,7 @@
       font-weight: 700;
       font-size: 2.8em;
       margin-bottom: 0;
-      color: #000000; /* black title */
+      color: #000000;
     }
     .subtitle {
       font-weight: 400;
@@ -27,7 +27,6 @@
       color: #666;
       margin-bottom: 40px;
       font-style: italic;
-      text-transform: none;
     }
     .tracker {
       background: white;
@@ -46,15 +45,20 @@
     .value {
       font-weight: 700;
       font-size: 2.4em;
-      color: #4E2A84; /* Deep purple */
+      color: #4E2A84;
       margin-bottom: 15px;
+    }
+    .note {
+      font-size: 1em;
+      color: #666;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
 
-  <h1>"Second to None"</h1>
-  <div class="subtitle">Elapsed Time Since Thursday May 15, 2025</div>
+  <h1>“Second to None”</h1>
+  <div class="subtitle">Elapsed Time Since Thursday, May 15, 2025</div>
 
   <div class="tracker">
     <div class="label">Days Since May 15, 2025:</div>
@@ -65,29 +69,33 @@
   </div>
 
   <div class="tracker">
-    <div class="label">What is 8 weeks from today's date?</div>
-    <div class="value" id="futureDate">Loading...</div>
+    <div class="label">What date is the same amount of time into the future from today?</div>
+    <div class="value" id="projectedDate">Loading...</div>
+    <div class="note" id="projectedNote"></div>
   </div>
 
   <script>
     const startDate = new Date('2025-05-15');
     const today = new Date();
 
-    startDate.setHours(0,0,0,0);
-    today.setHours(0,0,0,0);
+    // Normalize time
+    startDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
 
     const diffTime = today - startDate;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    document.getElementById('daysCount').textContent = `${diffDays} days`;
+    const diffWeeks = (diffDays / 7).toFixed(1);
 
-    const diffWeeks = Math.floor(diffDays / 7);
+    document.getElementById('daysCount').textContent = `${diffDays} days`;
     document.getElementById('weeksCount').textContent = `${diffWeeks} weeks`;
 
-    const futureDate = new Date(today);
-    futureDate.setDate(futureDate.getDate() + 8 * 7);
+    // Project future date from today
+    const projected = new Date(today);
+    projected.setDate(projected.getDate() + diffDays);
 
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('futureDate').textContent = futureDate.toLocaleDateString(undefined, options);
+    document.getElementById('projectedDate').textContent = projected.toLocaleDateString(undefined, options);
+    document.getElementById('projectedNote').textContent = `That’s ${diffDays} days or ${diffWeeks} weeks from today.`;
   </script>
 
 </body>
