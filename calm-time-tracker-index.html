@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Second to None</title>
+
+  <!-- Load Montserrat font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #F0EDF9; /* lighter purple background */
+      text-align: center;
+      padding: 60px 20px;
+      color: #444;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 2.8em;
+      margin-bottom: 0;
+      color: #000000; /* black title */
+    }
+    .subtitle {
+      font-weight: 400;
+      font-size: 1.1em;
+      color: #666;
+      margin-bottom: 40px;
+      font-style: italic;
+      text-transform: none;
+    }
+    .tracker {
+      background: white;
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .label {
+      font-weight: 400;
+      font-size: 1.2em;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .value {
+      font-weight: 700;
+      font-size: 2.4em;
+      color: #4E2A84; /* Deep purple */
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>”Second to None”</h1>
+  <div class="subtitle">Elapsed Time Since Thursday May 15, 2025</div>
+
+  <div class="tracker">
+    <div class="label">Days Since May 15, 2025:</div>
+    <div class="value" id="daysCount">Loading...</div>
+
+    <div class="label">Weeks Since May 15, 2025:</div>
+    <div class="value" id="weeksCount">Loading...</div>
+  </div>
+
+  <div class="tracker">
+    <div class="label">What is 8 weeks from today's date?</div>
+    <div class="value" id="futureDate">Loading...</div>
+  </div>
+
+  <script>
+    const startDate = new Date('2025-05-15');
+    const today = new Date();
+
+    startDate.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+
+    const diffTime = today - startDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById('daysCount').textContent = `${diffDays} days`;
+
+    const diffWeeks = Math.floor(diffDays / 7);
+    document.getElementById('weeksCount').textContent = `${diffWeeks} weeks`;
+
+    const futureDate = new Date(today);
+    futureDate.setDate(futureDate.getDate() + 8 * 7);
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('futureDate').textContent = futureDate.toLocaleDateString(undefined, options);
+  </script>
+
+</body>
+</html>
